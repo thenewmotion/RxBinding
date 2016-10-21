@@ -6,7 +6,6 @@ import com.github.javaparser.ast.PackageDeclaration
 import com.github.javaparser.ast.TypeParameter
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
-import com.github.javaparser.ast.body.ModifierSet
 import com.github.javaparser.ast.type.ClassOrInterfaceType
 import com.github.javaparser.ast.type.PrimitiveType
 import com.github.javaparser.ast.type.ReferenceType
@@ -36,9 +35,9 @@ open class KotlinGenTask : SourceTask() {
      */
     private val IGNORED_IMPORTS = listOf(
         "java.util.List",
-        "android.annotation.TargetApi",
         "android.support.annotation.CheckResult",
-        "android.support.annotation.NonNull"
+        "android.support.annotation.NonNull",
+        "android.support.annotation.RequiresApi"
     )
 
     fun resolveKotlinTypeByName(input: String): String {
@@ -187,7 +186,6 @@ open class KotlinGenTask : SourceTask() {
   class KMethod(val n: MethodDeclaration) {
     private val name = n.name
     private val comment = if (n.comment != null) cleanUpDoc(n.comment.toString()) else null
-    private val accessModifier = ModifierSet.getAccessSpecifier(n.modifiers).codeRepresenation
     private val extendedClass = n.parameters[0].type.toString()
     private val parameters = n.parameters.subList(1, n.parameters.size)
     private val returnType = n.type
@@ -276,8 +274,8 @@ open class KotlinGenTask : SourceTask() {
       // doc
       builder.append("${comment ?: ""}\n")
 
-      // access modifier and other signature boilerplate
-      builder.append("$accessModifier inline fun ")
+      // signature boilerplate
+      builder.append("inline fun ")
 
       // type params
       builder.append(if (typeParameters != null) typeParameters + " " else "")
