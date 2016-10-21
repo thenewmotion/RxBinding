@@ -3,6 +3,7 @@ package com.jakewharton.rxbinding.view;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
+import static com.jakewharton.rxbinding.internal.Preconditions.checkNotNull;
 
 /**
  * A target view on which an event occurred (e.g., click).
@@ -14,11 +15,11 @@ public abstract class ViewEvent<T extends View> {
   private final T view;
 
   protected ViewEvent(@NonNull T view) {
-    this.view = view;
+    this.view = checkNotNull(view, "view == null");
   }
 
   /** The view from which this event occurred. */
-  public @NonNull T view() {
+  @NonNull public T view() {
     return view;
   }
 }

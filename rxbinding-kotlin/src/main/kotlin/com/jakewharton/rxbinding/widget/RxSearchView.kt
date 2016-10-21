@@ -15,7 +15,7 @@ import rx.functions.Func1
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
+inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQueryTextEvent> = RxSearchView.queryTextChangeEvents(this)
 
 /**
  * Create an observable of character sequences for query text changes on `view`.
@@ -25,9 +25,9 @@ public inline fun SearchView.queryTextChangeEvents(): Observable<SearchViewQuery
  *
  * *Note:* A value will be emitted immediately on subscribe.
  */
-public inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSearchView.queryTextChanges(this)
+inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSearchView.queryTextChanges(this)
 
-/**
+/**w
  * An action which sets the query property of `view` with character sequences.
  *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
@@ -35,38 +35,38 @@ public inline fun SearchView.queryTextChanges(): Observable<CharSequence> = RxSe
  *
  * @param submit weather to submit query right after updating query text
  */
-public inline fun SearchView.query(submit: Boolean): Action1<in CharSequence> = RxSearchView.query(this, submit)
+inline fun SearchView.query(submit: Boolean): Action1<in CharSequence> = RxSearchView.query(this, submit)
 
 /**
  * Create an observable of booleans representing the focus of the query text field.
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- * 
+ *
  */
-public inline fun SearchView.queryTextFocusChange(): Observable<Boolean> = RxSearchView.queryTextFocusChange(this)
+inline fun SearchView.queryTextFocusChange(): Observable<Boolean> = RxSearchView.queryTextFocusChange(this)
 
 /**
  * Create an observable of the absolute position of the clicked item in the list of suggestions
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- * 
+ *
  * *Warning:* The created observable uses [SearchView.setOnSuggestionListener] to
  * observe search view events. Only one observable can be used for a search view at a time.
  */
-public inline fun SearchView.suggestionClick(): Observable<Int> = RxSearchView.suggestionClick(this)
+inline fun SearchView.suggestionClick(): Observable<Int> = RxSearchView.suggestionClick(this)
 
 /**
  * Create an observable of the absolute position of the clicked item in the list of suggestions
- * 
+ *
  * *Warning:* The created observable keeps a strong reference to `view`. Unsubscribe
  * to free this reference.
- * 
+ *
  * *Warning:* The created observable uses [SearchView.setOnSuggestionListener] to
  * observe search view events. Only one observable can be used for a search view at a time.
  *
  * @param handled Function invoked with each value to determine the return value of the
  * underlying [SearchView.OnSuggestionListener].
  */
-public inline fun SearchView.suggestionClick(handled: Func1<in Int, Boolean>): Observable<Int> = RxSearchView.suggestionClick(this, handled)
+inline fun SearchView.suggestionClick(handled: Func1<in Int, Boolean>): Observable<Int> = RxSearchView.suggestionClick(this, handled)
